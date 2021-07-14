@@ -10,20 +10,16 @@ const FundRequester = ({ user }) => {
 		<tr>
 			<td className="user-name-cont">
 				<div className="img mr-15">
-					{" "}
 					{getFirstLetter(first_name)}
-					{getFirstLetter(last_name)}{" "}
+					{getFirstLetter(last_name)}
 				</div>
 				<div className="name-info">
 					<h3>{`${first_name} ${last_name}`}</h3>
 					<p>#{id}</p>
 				</div>
 			</td>
-
 			<td>${money}</td>
-
 			<td>{date}</td>
-
 			<td>{reason}</td>
 		</tr>
 	);

@@ -1,35 +1,18 @@
 import { useEffect, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
+import { connect } from "react-redux";
 import fakeData from "../FakeData";
+import { searchData } from "../redux/user/userActions";
 import FundRequester from "./FundRequester";
 
-const FundRequests = () => {
+const FundRequests = ({ searchedUsers, searchData }) => {
 	const [users, setUsers] = useState([]);
-	const [searchColumns, setSearchColumns] = useState([
-		"first_name",
-		"last_name",
-		"id",
-		"money",
-		"reason",
-		"date",
-	]);
+
 	const [searchTerm, setSearchTerm] = useState("");
+
 	useEffect(() => {
-		if (searchTerm) {
-			const searchR = users.filter((userRow) => {
-				return searchColumns.some(
-					(column) =>
-						userRow[column]
-							.toString()
-							.toLowerCase()
-							.indexOf(searchTerm.toLowerCase()) > -1
-				);
-			});
-			setUsers(searchR);
-		} else {
-			setUsers(fakeData);
-		}
-	}, [searchTerm]);
+		setUsers(fakeData);
+	}, []);
 
 	return (
 		<div className="fund-requests ">
@@ -38,7 +21,10 @@ const FundRequests = () => {
 				<input
 					type="text "
 					value={searchTerm}
-					onChange={(e) => setSearchTerm(e.target.value)}
+					onChange={(e) => {
+						setSearchTerm(e.target.value);
+						searchData(e.target.value);
+					}}
 					className="font-16px "
 					placeholder="Search"
 				/>
@@ -54,7 +40,10 @@ const FundRequests = () => {
 						className="font-12px"
 						placeholder="Search"
 						value={searchTerm}
-						onChange={(e) => setSearchTerm(e.target.value)}
+						onChange={(e) => {
+							setSearchTerm(e.target.value);
+							searchData(e.target.value);
+						}}
 					/>
 				</div>
 				<div className="search-wrapper">
@@ -78,7 +67,11 @@ const FundRequests = () => {
 					</thead>
 
 					<tbody>
-						{users.length
+						{searchTerm
+							? searchedUsers.map((user) => (
+									<FundRequester key={user.id} user={user} />
+							  ))
+							: users.length
 							? users.map((user) => <FundRequester key={user.id} user={user} />)
 							: "Loading.."}
 					</tbody>
@@ -88,4 +81,14 @@ const FundRequests = () => {
 	);
 };
 
-export default FundRequests;
+const mapStateToProps = (state) => {
+	return {
+		searchedUsers: state.searchedUsers,
+	};
+};
+
+const mapDispatchToProps = {
+	searchData: searchData,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FundRequests);
