@@ -100,21 +100,34 @@
 		}
 		.dropdown-container {
 			display: block;
-
 			border-radius: 10px;
 
+			.special_listItem {
+				@include flexVertical;
+			}
+			span {
+				display: relative;
+				&::after {
+					position: absolute;
+					content: "ᐁ ";
+					right: 4%;
+				}
+			}
 			.nestedList {
-				// display: none;
 				padding-top: 18px;
-
 				padding-left: 45px;
 				list-style-type: disc;
+				transform: all 0.3s ease-in-out;
+			}
+			.hideCardHolder {
+				display: none;
+				height: 0;
 			}
 
 			li {
 				padding: 10px 10px;
 				width: 100%;
-
+				transform: all 0.3s ease-in-out;
 				.active,
 				&:hover {
 					color: $primaryColor;

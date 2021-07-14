@@ -11,6 +11,7 @@ import Hamburger from "./Hamburger";
 
 const Sidebar = () => {
 	const [hamburger, setHamburger] = useState(false);
+	const [extendCardHolder, setExtendCardHolder] = useState(true);
 	return (
 		<div>
 			{/* hamburger component */}
@@ -44,11 +45,24 @@ const Sidebar = () => {
 							Home
 						</li>
 
-						<li className="listItem dropdown-container">
-							<FaAddressCard className="listItem-icon" />
-							<span> Cardholders</span>
+						<li
+							onClick={(e) => {
+								setExtendCardHolder(!extendCardHolder);
+							}}
+							className="listItem dropdown-container"
+						>
+							<div className="special_listItem">
+								<FaAddressCard className="listItem-icon" />
+								<span> Cardholders</span>
+							</div>
 
-							<ul className="nestedList" nestedList>
+							<ul
+								onClick={(e) => e.stopPropagation()}
+								className={`${
+									extendCardHolder ? "nestedList" : "nestedList hideCardHolder"
+								}`}
+								nestedList
+							>
 								<li className="active">Fund Requests</li>
 								<li>Card Requests</li>
 							</ul>
