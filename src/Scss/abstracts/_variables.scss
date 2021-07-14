@@ -1,0 +1,24 @@
+// colors
+$primaryColor: #17202c;
+$secondaryColor: #585f67;
+$colorWhite: #ffffff;
+$colorGrey: #a1a4a9;
+$navColor: #585f67;
+$navColorHover: #24bd86;
+$borderColor: #e7e7e9;
+$searchColor: #8b8f95;
+
+$primaryBg: #ffffff;
+$secondaryBg: #f6f6f7;
+$buttonSecondary: #c7c9cc;
+
+// fonts
+$mainFont: "Source Sans Pro", sans-serif;
+
+$sizes: 12px, 14px, 16px, 18px, 20px, 22px, 25px, 32px;
+
+@each $size in $sizes {
+	.font-#{$size} {
+		font-size: $size;
+	}
+}
